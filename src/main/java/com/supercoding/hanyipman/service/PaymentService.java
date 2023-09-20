@@ -1,7 +1,6 @@
 package com.supercoding.hanyipman.service;
 
-import com.supercoding.hanyipman.advice.annotation.TimeTrace;
-import com.supercoding.hanyipman.dto.order.response.OrderNoticeResponse;
+import com.supercoding.hanyipman.dto.order.response.OrderNoticeSellerResponse;
 import com.supercoding.hanyipman.dto.payment.request.iamport.CancelPaymentRequest;
 import com.supercoding.hanyipman.dto.payment.request.iamport.PostPaymentRequest;
 import com.supercoding.hanyipman.dto.payment.request.kakaopay.KakaoPayCancelRequest;
@@ -10,7 +9,6 @@ import com.supercoding.hanyipman.dto.payment.response.iamport.CancelPaymentRespo
 import com.supercoding.hanyipman.dto.payment.response.iamport.GetOnePaymentResponse;
 import com.supercoding.hanyipman.dto.payment.response.iamport.PaymentPrepareResponse;
 import com.supercoding.hanyipman.dto.payment.response.kakaopay.*;
-import com.supercoding.hanyipman.dto.vo.SendSseResponse;
 import com.supercoding.hanyipman.entity.*;
 import com.supercoding.hanyipman.enums.EventName;
 import com.supercoding.hanyipman.enums.OrderStatus;
@@ -54,7 +52,7 @@ public class PaymentService {
     private final CartRepository cartRepository;
     private final RestTemplate restTemplate;
     private final OrderService orderService;
-    private final SseMessageService sseService;
+    private final SseEventService sseService;
     private static final String API_BASE_URL = "https://api.iamport.kr";
     private static final String KAKAOPAY_BASE_URL = "https://kapi.kakao.com";
 
@@ -206,8 +204,8 @@ public class PaymentService {
             order.setOrderStatus(OrderStatus.valueOf("PAID")); // 주문 상태값, WAIT -> PAID로 변경
             orderRepository.save(order); // 주문 엔티티 업데이트(주문 상태 변경)
             //주문 알림 기능
-            OrderNoticeResponse orderNoticeResponse = orderService.findOrder(user.getId(), order.getId());
-            sseService.sendSse(SendSseResponse.of(user.getId(), orderNoticeResponse));
+            OrderNoticeSellerResponse orderNoticeResponse = orderService.findOrderNoticeToSeller(user.getId(), order.getId());
+            sseService.validSendMessage(user.getId(), EventName.NOTICE_ORDER, orderNoticeResponse);
 
             return ResponseEntity.ok("결제가 성공했습니다.");
         } else {
@@ -370,8 +368,8 @@ public class PaymentService {
             paymentRepository.save(payment);
             orderRepository.save(order);
 
-            OrderNoticeResponse sseOrderResponse = orderService.findOrder(user.getId(), order.getId());
-            sseService.sendSse(SendSseResponse.of(user.getId(), sseOrderResponse));
+            OrderNoticeSellerResponse sseOrderResponse = orderService.findOrderNoticeToSeller(user.getId(), order.getId());
+            sseService.validSendMessage(user.getId(), EventName.NOTICE_ORDER, sseOrderResponse);
 
             return kakaoPayApproveResponse.getBody();
         } else {
