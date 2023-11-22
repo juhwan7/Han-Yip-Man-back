@@ -1,11 +1,11 @@
 
 # Han-Yip-Man-back
 
-![이미지](./images/기술스택 다이어그램.png)
+![이미지](./images/First main page.png)
 
-![이미지](/images/기술스택 다이어그램.png)
+![이미지](/images/First main page.png)
 
-![임ㅇㅂ지](images/기술스택 다이어그램.png)
+![이미지](images/First main page.png)
 
 
 ## 목차
