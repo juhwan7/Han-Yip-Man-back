@@ -1,11 +1,11 @@
 
 # Han-Yip-Man-back
+![비로그인메인페이지](/images/FirstmainPage.png)
 
-![이미지](./images/First-main-page.png)
 
-![이미지](/images/First-main-page.png)
 
-![이미지](images/First-main-page.png)
+
+
 
 
 ## 목차
@@ -29,6 +29,7 @@
 3. 지역화 서비스 제공: 사용자의 위치를 기반으로 가까운 음식점을 추천함으로써, 빠르고 편리한 배달 서비스를 제공하는 것입니다. 
 
 ## 기술 스택
+![아키텍쳐](/images/StackDiagram.png)
 백엔드:
 - 프레임워크: 스프링 부트, 스프링 시큐리티
 - 데이터베이스: MySQL, AWS RDS
@@ -49,8 +50,14 @@
 - 폼 핸들링: React Hook Form
 - 빌드 도구: Vite
 
+
 ## 기능 설명
 1. 회원가입 및 로그인
+
+![회원가입버튼](/images/SignUpButton.png)
+![카카오로그인](/images/UserKakaoLogin.png)
+![카카오로그인](/images/KakaologIn.png)
+![카카오로그인완료화면](/images/KakaologinCompleted.png)
 - 일반 사용자와 사장님을 구분하여 회원가입을 진행하며, 스프링 시큐리티를 통해 각각의 권한을 관리합니다. 
 - 일반 사용자의 경우, 카카오 회원가입 및 로그인 기능을 제공하여, 회원가입 절차를 간소화하고 사용자 편의성을 높였습니다.
 2. 마이페이지
@@ -59,6 +66,7 @@
 3. 주문내역 관리
 - 주문중인 항목과 주문 완료된 항목들이 최신순으로 정렬되어 표시됩니다.
 4. 주소관리
+  ![주소5개](/images/Addresses.png)
 - 기본 주소로 회원가입 시 작성했던 주소가 표시되며, 최대 5개까지 주소를 추가할 수 있습니다.
 - 추가한 주소 중에서 배달을 받을 기본 주소를 클릭 한 번으로 변경할 수 있습니다.
 5. 메인페이지 음식점 선택
@@ -72,4 +80,5 @@
 ## API 문서
 - [한입만 프로젝트 API문서](https://sixth-humidity-a58.notion.site/c48a6ed7c743487fa8da043ea6ba6e73?v=7240be5043914aadab0b8246d23a6580&pvs=4)
 - [Swagger API 리스트](http://54.180.103.214:8080/swagger-ui/index.html)
+![스웨거Api](/images/SwaggerPanoramicPhoto.png)
 
